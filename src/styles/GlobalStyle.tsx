@@ -1,9 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
-// Trick to get formatting in createglobalstyle
+// Needed to get formatting in createGlobalStyle
 const styled = { createGlobalStyle };
 
 const GlobalStyle = styled.createGlobalStyle`
+  :root {
+    --color-black: #282c34;
+    --color-blue: #008eb6;
+  }
+
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
@@ -25,7 +30,7 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   a {
-    color: #61dafb;
+    color: var(--color-blue);
     text-decoration: none;
   }
 
