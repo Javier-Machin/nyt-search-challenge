@@ -4,10 +4,10 @@ import reducer from './reducer';
 
 const store = configureStore({ reducer });
 
-type TStore = ReturnType<typeof store.getState>; // Root state type
-type TAppDispatch = typeof store.dispatch;
+type AppDispatch = typeof store.dispatch;
+type RootState = ReturnType<typeof store.getState>;
 
-const useAppDispatch = (): TAppDispatch => useDispatch<TAppDispatch>();
-const useAppSelector: TypedUseSelectorHook<TStore> = useSelector;
+const useAppDispatch = () => useDispatch<AppDispatch>();
+const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export { store, useAppDispatch, useAppSelector };
