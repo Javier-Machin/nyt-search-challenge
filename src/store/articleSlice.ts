@@ -5,13 +5,13 @@ interface Payload {
   page: number;
 }
 
-interface SearchResult {
+interface SearchResultType {
   uri: string;
   headline: { main: string };
 }
 
 interface ArticleSearchPages {
-  [page: number]: SearchResult[];
+  [page: number]: SearchResultType[];
 }
 
 interface MultimediaItem {
@@ -24,6 +24,7 @@ interface ArticleType {
   headline: { main: string };
   lead_paragraph: string;
   pub_date: string;
+  web_url: string;
   multimedia: MultimediaItem[];
 }
 
@@ -118,4 +119,4 @@ export {
   getArticleByURI,
 };
 
-export type { ArticleType };
+export type { ArticleType, SearchResultType };

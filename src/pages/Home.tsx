@@ -1,13 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
 import Header from '../components/Header';
-import ArticleSearch from '../components/ArticleSearch';
+import Search from '../components/Search';
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: var(--max-content-width);
+`;
 
 function Home() {
   return (
-    <div>
+    <Container>
       <Header pageTitle="New York Times Search" />
-      <ArticleSearch />
-    </div>
+      <Search />
+    </Container>
   );
 }
 

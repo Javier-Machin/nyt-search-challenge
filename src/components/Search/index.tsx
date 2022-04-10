@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import styled from 'styled-components';
 import useURLBasedSearch from '../../hooks/useURLBasedSearch';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
@@ -8,8 +9,17 @@ import {
   searchArticles,
 } from '../../store/articleSlice';
 import SearchForm from './SearchForm';
+import SearchPagination from './SearchPagination';
+import SearchResults from './SearchResults';
 
-function ArticleSearch() {
+const Container = styled.div`
+  margin: 0 auto;
+`;
+
+function Search() {
+  const { currentPage, articles, lastSearchQuery, fetching } = useAppSelector(
+    (state) => state.articleReducer,
+  );
   const [_, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const [queryInput, setQueryInput] = useState('');
@@ -28,13 +38,10 @@ function ArticleSearch() {
     setSearchParams(`q=${queryInput}&page=0`);
   };
 
-  const { currentPage, articles, searchHits, lastSearchQuery } = useAppSelector(
-    (state) => state.articleReducer,
-  );
-
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement>) => {
-    let newPage;
+    if (fetching) return;
 
+    let newPage;
     if (event.currentTarget.id === 'prev') {
       newPage = currentPage - 1;
     } else {
@@ -42,58 +49,26 @@ function ArticleSearch() {
     }
 
     setSearchParams(`q=${lastSearchQuery}&page=${newPage}`);
-
     // Check if we have that page already in the store
     if (articles[newPage]?.length) {
       dispatch(changePage({ page: newPage }));
       return;
     }
-
     // If we don't, fetch from API
     dispatch(searchArticles({ query: lastSearchQuery, page: newPage }));
   };
 
-  const articlesAvailable = !!articles[currentPage]?.length;
-  const previousPageAvailable = currentPage > 0;
-  const nextPageAvailable = currentPage * 10 < searchHits;
-
   return (
-    <div>
-      {articlesAvailable && <h3>Results page: {currentPage}</h3>}
+    <Container>
       <SearchForm
-        handleSearchSubmit={handleSearchSubmit}
-        handleSearchInput={handleSearchInput}
+        onSearchSubmit={handleSearchSubmit}
+        onSearchInputChange={handleSearchInput}
         inputValue={queryInput}
       />
-      <br />
-      <br />
-      <ul>
-        {articles[currentPage]?.map((article) => (
-          <li key={article.uri}>
-            <span>{article.headline.main} </span>
-            <Link
-              to={{
-                pathname: '/article',
-                search: `?uri=${article.uri}&q=${lastSearchQuery}&page=${currentPage}`,
-              }}
-            >
-              Read article
-            </Link>
-          </li>
-        ))}
-      </ul>
-      {previousPageAvailable && (
-        <button id="prev" type="button" onClick={handleChangePage}>
-          prev page
-        </button>
-      )}
-      {nextPageAvailable && (
-        <button id="next" type="button" onClick={handleChangePage}>
-          next page
-        </button>
-      )}
-    </div>
+      <SearchPagination onChangePage={handleChangePage} />
+      <SearchResults />
+    </Container>
   );
 }
 
-export default ArticleSearch;
+export default Search;

@@ -6,7 +6,7 @@ const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(0.5rem + 2vmin);
+  font-size: 2.2rem;
   color: white;
 `;
 

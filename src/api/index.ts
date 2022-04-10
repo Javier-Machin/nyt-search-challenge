@@ -7,6 +7,7 @@ const ARTICLE_REQUIRED_FIELDS = [
   'lead_paragraph',
   'pub_date',
   'multimedia',
+  'web_url',
 ];
 const NYT_API_URL = 'https://api.nytimes.com/svc/search/v2/';
 
