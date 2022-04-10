@@ -38,21 +38,22 @@ const PublicationDate = styled.p`
 `;
 
 function Article() {
+  const { articlesByURI, fetching } = useAppSelector(
+    (state) => state.articleReducer,
+  );
   const [currentArticle, setCurrentArticle] = useState<ArticleType | null>(
     null,
   );
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { articlesByURI, fetching } = useAppSelector(
-    (state) => state.articleReducer,
-  );
 
   useEffect(() => {
     const uri = searchParams.get('uri');
 
     if (uri) {
       const articleInStore = articlesByURI[uri];
+
       if (articleInStore) {
         setCurrentArticle(articleInStore);
       } else if (!fetching) {

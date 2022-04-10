@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../store';
 import { searchArticles } from '../store/articleSlice';
 
 const useURLBasedSearch = (
-  query: string,
+  queryInput: string,
   setQuery: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   const [searchParams] = useSearchParams();
@@ -23,7 +23,7 @@ const useURLBasedSearch = (
       searchCachedParam &&
       articles[currentPage]?.length;
 
-    const isURLSearch = searchQueryParam && !query;
+    const isURLSearch = searchQueryParam && !queryInput;
 
     if (isURLSearch && !fetching && !isCachedSearch) {
       dispatch(
