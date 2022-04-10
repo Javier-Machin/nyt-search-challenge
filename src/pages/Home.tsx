@@ -1,39 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { changePage, searchArticles, clearCache } from '../store/articleSlice';
 import { useAppDispatch, useAppSelector } from '../store';
+import useURLBasedSearch from '../hooks/useURLBasedSearch';
 
 function Home() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
-  const { currentPage, articles, searchHits, fetching, lastSearchQuery } =
-    useAppSelector((state) => state.articleReducer);
   const [query, setQuery] = useState('');
+  useURLBasedSearch(query, setQuery);
 
-  // URL based search
-  useEffect(() => {
-    const searchQueryParam = searchParams.get('q');
-    const searchPageParam = Number(searchParams.get('page'));
-    const searchCachedParam = searchParams.get('cached');
-    const isCachedSearch =
-      searchQueryParam &&
-      searchPageParam > -1 &&
-      searchCachedParam &&
-      articles[currentPage]?.length;
-
-    const isURLSearch = searchQueryParam && !query;
-
-    if (isURLSearch && !fetching && !isCachedSearch) {
-      dispatch(
-        searchArticles({ query: searchQueryParam, page: searchPageParam }),
-      );
-    }
-
-    if (searchQueryParam) {
-      setQuery(searchQueryParam);
-    }
-  }, []);
+  const { currentPage, articles, searchHits, lastSearchQuery } = useAppSelector(
+    (state) => state.articleReducer,
+  );
 
   const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);

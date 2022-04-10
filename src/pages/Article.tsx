@@ -79,17 +79,21 @@ function Article() {
     articleDate = new Date(currentArticle.pub_date);
   }
 
+  const hasImage = !!currentArticle?.multimedia[0]?.url;
+
   return currentArticle ? (
     <Container>
       <Header pageTitle={currentArticle.headline.main} />
       <ArticleContent>
         <PublicationDate>{articleDate?.toDateString()}</PublicationDate>
-        <Img
-          src={`https://www.nytimes.com/${currentArticle.multimedia[0].url}`}
-          width={currentArticle.multimedia[0].width}
-          height={currentArticle.multimedia[0].height}
-          alt={currentArticle.headline.main}
-        />
+        {hasImage && (
+          <Img
+            src={`https://www.nytimes.com/${currentArticle.multimedia[0].url}`}
+            width={currentArticle.multimedia[0]?.width}
+            height={currentArticle.multimedia[0]?.height}
+            alt={currentArticle.headline.main}
+          />
+        )}
         <Text>{currentArticle.lead_paragraph}</Text>
         <Link to={getNavigateBackLink()}>Back to search</Link>
       </ArticleContent>
