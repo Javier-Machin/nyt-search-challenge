@@ -28,6 +28,8 @@ const GlobalStyle = styled.createGlobalStyle`
       'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    background-color: var(--color-black);
   }
 
   a {

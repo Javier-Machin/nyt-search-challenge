@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { changePage, searchArticles, clearCache } from '../store/articleSlice';
 import { useAppDispatch, useAppSelector } from '../store';
@@ -7,21 +7,30 @@ import { useAppDispatch, useAppSelector } from '../store';
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
-  const { currentPage, articles, searchHits } = useAppSelector(
-    (state) => state.articleReducer,
-  );
+  const { currentPage, articles, searchHits, fetching, lastSearchQuery } =
+    useAppSelector((state) => state.articleReducer);
   const [query, setQuery] = useState('');
 
   // URL based search
   useEffect(() => {
     const searchQueryParam = searchParams.get('q');
     const searchPageParam = Number(searchParams.get('page'));
+    const searchCachedParam = searchParams.get('cached');
+    const isCachedSearch =
+      searchQueryParam &&
+      searchPageParam > -1 &&
+      searchCachedParam &&
+      articles[currentPage]?.length;
+
     const isURLSearch = searchQueryParam && !query;
 
-    if (isURLSearch) {
+    if (isURLSearch && !fetching && !isCachedSearch) {
       dispatch(
         searchArticles({ query: searchQueryParam, page: searchPageParam }),
       );
+    }
+
+    if (searchQueryParam) {
       setQuery(searchQueryParam);
     }
   }, []);
@@ -38,10 +47,10 @@ function Home() {
     setSearchParams(`q=${query}&page=${0}`);
   };
 
-  const handleChangePage = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement>) => {
     let newPage;
 
-    if (e.currentTarget.id === 'prev') {
+    if (event.currentTarget.id === 'prev') {
       newPage = currentPage - 1;
     } else {
       newPage = currentPage + 1;
@@ -66,7 +75,6 @@ function Home() {
   return (
     <div>
       <Header pageTitle="New York Times Search" />
-      <h2>Hi from Home</h2>
       {articlesAvailable && <h3>Results page: {currentPage}</h3>}
       <form onSubmit={handleSearchSubmit}>
         <input
@@ -83,7 +91,17 @@ function Home() {
       <br />
       <ul>
         {articles[currentPage]?.map((article) => (
-          <li key={article.uri}>{article.headline.main}</li>
+          <li key={article.uri}>
+            <span>{article.headline.main} </span>
+            <Link
+              to={{
+                pathname: '/article',
+                search: `?uri=${article.uri}&q=${lastSearchQuery}&page=${currentPage}`,
+              }}
+            >
+              Read article
+            </Link>
+          </li>
         ))}
       </ul>
       {previousPageAvailable && (

@@ -2,7 +2,12 @@
 import axios from 'axios';
 
 const SEARCH_REQUIRED_FIELDS = ['uri', 'headline'];
-const ARTICLE_REQUIRED_FIELDS = ['headline'];
+const ARTICLE_REQUIRED_FIELDS = [
+  'headline',
+  'lead_paragraph',
+  'pub_date',
+  'multimedia',
+];
 const NYT_API_URL = 'https://api.nytimes.com/svc/search/v2/';
 
 const axiosInstance = axios.create({
@@ -28,10 +33,10 @@ const searchArticlesAPI = async (query: string, page: number) => {
   Using URI instead of id as the field in the response is called _id,
   by convention a private key
 */
-const getArticleByURIAPI = async (id: string) => {
+const getArticleByURIAPI = async (uri: string) => {
   try {
     const response = await axiosInstance.get(
-      `articlesearch.json?fq=_id:(${id})&api-key=${
+      `articlesearch.json?fq=uri:("${uri}")&api-key=${
         process.env.REACT_APP_NYT_API_KEY
       }&fl=${ARTICLE_REQUIRED_FIELDS.join(',')}`,
     );
