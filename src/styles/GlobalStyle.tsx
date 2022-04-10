@@ -7,6 +7,7 @@ const GlobalStyle = styled.createGlobalStyle`
   :root {
     --color-black: #282c34;
     --color-blue: #008eb6;
+    --max-content-width: 120rem;
   }
 
   html {

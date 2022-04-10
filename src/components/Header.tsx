@@ -11,7 +11,7 @@ const Container = styled.header`
 `;
 
 const PageTitle = styled.h1`
-  max-width: 120rem;
+  max-width: var(--max-content-width);
 `;
 
 interface HeaderProps {
