@@ -15,7 +15,9 @@ const useURLBasedSearch = (
 
   useEffect(() => {
     const searchQueryParam = searchParams.get('q');
-    const searchPageParam = Number(searchParams.get('page'));
+    let searchPageParam = Number(searchParams.get('page'));
+    if (Number.isNaN(searchPageParam)) searchPageParam = 0;
+
     const searchCachedParam = searchParams.get('cached');
     const isCachedSearch =
       searchQueryParam &&
@@ -23,7 +25,7 @@ const useURLBasedSearch = (
       searchCachedParam &&
       articles[currentPage]?.length;
 
-    const isURLSearch = searchQueryParam && searchPageParam && !queryInput;
+    const isURLSearch = searchQueryParam && !queryInput;
 
     if (isURLSearch && !fetching && !isCachedSearch) {
       dispatch(
