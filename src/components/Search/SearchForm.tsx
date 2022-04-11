@@ -8,6 +8,7 @@ const Form = styled.form`
     border-radius: 0 5px 5px 0;
   }
 `;
+
 const Input = styled.input`
   padding: 0.6rem 1rem;
   border-radius: 5px 0 0 5px;
