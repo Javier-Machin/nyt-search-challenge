@@ -14,7 +14,11 @@ It's written in TypeScript, using create-react-app as the starting point.
 
 Coding style and formatting is ensured via ESLint with Airbnb ruleset, enforced via a husky pre-commit hook.
 
-In addition to the required and optional features, I added client side caching of the search result pages, which lasts for the duration of the session or until a new search term is submitted, and caching of the details view for individual articles for the duration of the session.
+In addition to the required and optional features, I added client side caching of the search result pages using the redux store, which lasts for the duration of the session or until a new search term is submitted, and caching of the details view for individual articles for the duration of the session.
+
+In the tests the API calls are intercepted and mocked via Mock Service Worker (MSW).
+
+There's another husky pre-commit hook which runs the tests.
 
 The styles are just functional, with a CSS-in-JS approach, making sure the app remains usable in a different array of screen sizes and the accessibility is correct (can be used keyboard only, avoids low color contrast situations, as some examples).
 
