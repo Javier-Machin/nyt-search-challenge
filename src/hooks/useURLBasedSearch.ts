@@ -27,7 +27,10 @@ const useURLBasedSearch = (
 
     if (isURLSearch && !fetching && !isCachedSearch) {
       dispatch(
-        searchArticles({ query: searchQueryParam, page: searchPageParam }),
+        searchArticles({
+          query: searchQueryParam,
+          page: Math.abs(searchPageParam),
+        }),
       );
     }
 

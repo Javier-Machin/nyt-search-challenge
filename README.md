@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# The New York Times Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Small app making use of NYT' API to search news articles.
 
-## Available Scripts
+# How I approached the project
 
-In the project directory, you can run:
+I decided to focus in the architecture and meeting the different requirements, in a way that creates a performant and scalable application, without falling too much into early optimization.
 
-### `npm start`
+It's written in TypeScript, using create-react-app as the starting point.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In addition to the required and optional features, I added client side caching of the search result pages, which lasts for the duration of the session or until a new search term is submitted, and caching of the details view for individual articles for the duration of the session.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The styles are just functional, making sure the app remains usable in a different array of screen sizes and the accesibility is correct (can be used keyboard only, avoid low contrast situations, as some examples).
 
-### `npm test`
+It allows URL based search using the following pattern: `http://localhost:3000/?q=elections&page=1`
+Replace `elections` with any other search term to specify the topic and `1` with any other 0 or higher number to specify the results page.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Development
 
-### `npm run build`
+Node version: v16.14.2
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Create a file named `.env` in the root of the project, add the variable `REACT_APP_NYT_API_KEY=` and set your NYT API key as the value.
+- `npm install`
+- `npm start` to run the development server
+- `npm test` to run the tests, it will display a coverage report and generate a HTML version of it in the folder `coverage` explore it by openning the `index.html` file with your browser.
