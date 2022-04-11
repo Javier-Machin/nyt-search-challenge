@@ -2,6 +2,10 @@
 
 Small app making use of NYT' API to search news articles.
 
+<img src=public/nyt-1.png alt="The New York Times app screenshot" width="100%"> 
+
+<img src=public/nyt-2.png alt="The New York Times app screenshot" width="100%"> 
+
 # How I approached the project
 
 I decided to focus in the architecture and meeting the different requirements, in a way that creates a performant and scalable application, without falling too much into early optimization.
