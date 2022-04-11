@@ -23,7 +23,7 @@ const useURLBasedSearch = (
       searchCachedParam &&
       articles[currentPage]?.length;
 
-    const isURLSearch = searchQueryParam && !queryInput;
+    const isURLSearch = searchQueryParam && searchPageParam && !queryInput;
 
     if (isURLSearch && !fetching && !isCachedSearch) {
       dispatch(

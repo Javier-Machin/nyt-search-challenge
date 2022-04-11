@@ -16,7 +16,7 @@ Coding style and formatting is ensured via ESLint with Airbnb ruleset, enforced 
 
 In addition to the required and optional features, I added client side caching of the search result pages, which lasts for the duration of the session or until a new search term is submitted, and caching of the details view for individual articles for the duration of the session.
 
-The styles are just functional, with a CSS-in-JS approach, making sure the app remains usable in a different array of screen sizes and the accesibility is correct (can be used keyboard only, avoids low color contrast situations, as some examples).
+The styles are just functional, with a CSS-in-JS approach, making sure the app remains usable in a different array of screen sizes and the accessibility is correct (can be used keyboard only, avoids low color contrast situations, as some examples).
 
 It allows URL based search using the following pattern: `http://localhost:3000/?q=elections&page=1`
 
