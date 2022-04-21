@@ -45,8 +45,8 @@ function Button({ children, submit, id, onClick, disabled }: ButtonProps) {
 
 Button.defaultProps = {
   id: '',
-  submit: Function.prototype,
-  onClick: null,
+  submit: false,
+  onClick: Function.prototype,
   disabled: false,
 };
 

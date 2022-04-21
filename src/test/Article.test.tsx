@@ -52,7 +52,6 @@ describe('from the initial state', () => {
         "Read full article on New York Times' site",
       );
       expect(externalLink).toBeInTheDocument();
-      fireEvent.click(externalLink);
     });
   });
 
@@ -60,7 +59,6 @@ describe('from the initial state', () => {
     await waitFor(async () => {
       const articleTitle = screen.getByText('‘This Was Trump Pulling a Putin’');
       expect(articleTitle).toBeInTheDocument();
-      fireEvent.click(articleTitle);
     });
   });
 
@@ -70,7 +68,6 @@ describe('from the initial state', () => {
         'beginning the process of obtaining NATO membership.',
       );
       expect(articleText).toBeInTheDocument();
-      fireEvent.click(articleText);
     });
   });
 });

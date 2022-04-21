@@ -1,10 +1,27 @@
 # The New York Times Search
 
-Small app making use of NYT' API to search news articles.
+Small app making use of The New York Times API to search news articles.
 
-<img src=public/nyt-1.png alt="The New York Times app screenshot" width="100%"> 
+<img src=public/nyt-1.png alt="The New York Times app screenshot" width="100%">
 
-<img src=public/nyt-2.png alt="The New York Times app screenshot" width="100%"> 
+<img src=public/nyt-2.png alt="The New York Times app screenshot" width="100%">
+
+## Requirements
+
+- Return a list of NYT articles based on a given search term. A Result item should contain a title.
+- Pagination: Ability to navigate between the result pages with the possibility to access the same result page by URL.
+- Detailed View Screen: Ability to access each article via a different URL.
+
+## Required Technologies
+
+- React
+- React-router
+- Application State Management (Redux / React Context)
+
+## Optionals
+
+- Request only `article` document_type.
+- Minimize the API response (fetch the required fields only).
 
 # How I approached the project
 
@@ -32,7 +49,7 @@ Node version: v16.14.2
 
 ## Setup
 
-- Create a file named `.env` in the root of the project, add the variable `REACT_APP_NYT_API_KEY=` and set your NYT API key as the value.
+- Create a file named `.env` in the root of the project, add the variable `REACT_APP_NYT_API_KEY=` and set your New York Times API key as the value.
 - `npm install`
 - `npm start` to run the development server
-- `npm test` to run the tests, it will display a coverage report and generate a HTML version of it in the  `coverage` folder. Explore it by openning the `index.html` file found inside the folder with your web browser.
+- `npm test` to run the tests, it will display a coverage report and generate a HTML version of it in the `coverage` folder. Explore it by openning the `index.html` file found inside the folder with your web browser.
